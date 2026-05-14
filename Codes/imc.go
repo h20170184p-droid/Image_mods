@@ -40,9 +40,12 @@ func main() {
 		fmt.Println(e4)
 		return
 	}
-
-	for y := range height {
-		for x := range width {
+	termWidth := 120
+	termHeight := 40
+	stepX := width / termWidth
+	stepY := height / termHeight
+	for y := 0; y < height; y += stepY {
+		for x := 0; x < width; x += stepX {
 			r, g, b, _ := im_data.At(x, y).RGBA()
 			r8 := r >> 8
 			g8 := g >> 8
@@ -60,10 +63,10 @@ func main() {
 			default:
 				e_file.WriteString(" ")
 			}
-			e_file.WriteString("\n")
 		}
-
-		e_file.Close()
-		file.Close()
+		e_file.WriteString("\n")
 	}
+
+	e_file.Close()
+	file.Close()
 }
